@@ -1,5 +1,5 @@
-import './GaugeStyle.css';
-import GaugeDirective from './GaugeDirective';
+import './gaugeStyle.css';
+import GaugeDirective from './gaugeDirective';
 
 export default angular
     .module('imMap.Gauge', [])

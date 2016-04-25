@@ -1,6 +1,6 @@
 webpackJsonp([4],{
 
-/***/ 21:
+/***/ 24:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9,7 +9,7 @@ webpackJsonp([4],{
 	    value: true
 	});
 
-	var _ram = __webpack_require__(22);
+	var _ram = __webpack_require__(25);
 
 	var _ram2 = _interopRequireDefault(_ram);
 
@@ -19,7 +19,7 @@ webpackJsonp([4],{
 
 /***/ },
 
-/***/ 22:
+/***/ 25:
 /***/ function(module, exports) {
 
 	"use strict";

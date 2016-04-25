@@ -70,7 +70,7 @@
 <div class="row">
     <div class="col-md-8">
         <div ng-controller="GaugeDemoCtrl as GaugeDemoVm">
-            <im-map-gauge/>
+            <im-map-gauge val="GaugeDemoVm.val" map-width="{{GaugeDemoVm.width}}" map-height="{{GaugeDemoVm.height}}" />
         </div>
     </div>
 </div>

@@ -8,11 +8,11 @@ webpackJsonp([0],[
 
 	var _index2 = _interopRequireDefault(_index);
 
-	var _router = __webpack_require__(10);
+	var _router = __webpack_require__(13);
 
 	var _router2 = _interopRequireDefault(_router);
 
-	var _router3 = __webpack_require__(17);
+	var _router3 = __webpack_require__(20);
 
 	var _router4 = _interopRequireDefault(_router3);
 
@@ -89,20 +89,27 @@ webpackJsonp([0],[
 	    value: true
 	});
 
-	__webpack_require__(35);
+	__webpack_require__(8);
 
-	var _GaugeDirective = __webpack_require__(8);
+	var _gaugeDirective = __webpack_require__(10);
 
-	var _GaugeDirective2 = _interopRequireDefault(_GaugeDirective);
+	var _gaugeDirective2 = _interopRequireDefault(_gaugeDirective);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = angular.module('imMap.Gauge', []).directive('imMapGauge', function () {
-	    return new _GaugeDirective2.default();
+	    return new _gaugeDirective2.default();
 	});
 
 /***/ },
 /* 8 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 9 */,
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -114,9 +121,13 @@ webpackJsonp([0],[
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _echarts = __webpack_require__(9);
+	var _echarts = __webpack_require__(11);
 
 	var _echarts2 = _interopRequireDefault(_echarts);
+
+	var _gaugeController = __webpack_require__(12);
+
+	var _gaugeController2 = _interopRequireDefault(_gaugeController);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -129,7 +140,16 @@ webpackJsonp([0],[
 	        this.restrict = 'E';
 	        this.template = '<div class="gauge-map"></div>';
 
-	        this.scope = {};
+	        this.controller = _gaugeController2.default;
+
+	        this.controllerAs = 'GaugeVm';
+
+	        this.bindToController = true;
+	        this.scope = {
+	            'width': '@mapWidth',
+	            'height': '@mapHeight',
+	            'val': '='
+	        };
 	    }
 
 	    _createClass(GaugeDirective, [{
@@ -148,14 +168,17 @@ webpackJsonp([0],[
 	                series: [{
 	                    name: '业务指标',
 	                    type: 'gauge',
-	                    detail: { formatter: '50%' },
-	                    data: [{ value: 50, name: '完成率' }]
+	                    detail: { formatter: '{value}%' },
+	                    data: [{ value: 0, name: '完成率' }]
 	                }]
 	            };
-	            ele.css({ width: '500px', height: '500px' });
+	            ele.css({ width: scope.GaugeVm.width, height: scope.GaugeVm.height });
 	            var myChart = _echarts2.default.init(ele[0]);
-	            myChart.setOption(option, true);
-	            debugger;
+	            scope.$watch('GaugeVm.val', function (newVal) {
+	                newVal = newVal || 0;
+	                option.series[0].data[0].value = newVal;
+	                myChart.setOption(option, true);
+	            });
 	        }
 	    }]);
 
@@ -165,8 +188,28 @@ webpackJsonp([0],[
 	exports.default = GaugeDirective;
 
 /***/ },
-/* 9 */,
-/* 10 */
+/* 11 */,
+/* 12 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var GaugeController = function GaugeController() {
+	    //this.val = 0;
+
+	    _classCallCheck(this, GaugeController);
+	};
+
+	exports.default = GaugeController;
+
+/***/ },
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -175,7 +218,7 @@ webpackJsonp([0],[
 	    value: true
 	});
 
-	__webpack_require__(11);
+	__webpack_require__(14);
 
 	var Router = function Router($urlRouterProvider, $stateProvider) {
 	    $stateProvider.state('cpu', {
@@ -184,7 +227,7 @@ webpackJsonp([0],[
 	        templateProvider: function templateProvider($q) {
 	            return $q(function (resolve) {
 	                __webpack_require__.e/* nsure */(1, function () {
-	                    resolve(__webpack_require__(13));
+	                    resolve(__webpack_require__(16));
 	                });
 	            });
 	        },
@@ -192,7 +235,7 @@ webpackJsonp([0],[
 	            asyncLoadCtrl: function asyncLoadCtrl($q, $ocLazyLoad) {
 	                return $q(function (resolve) {
 	                    __webpack_require__.e/* nsure */(2, function () {
-	                        var ngModule = __webpack_require__(14).default;
+	                        var ngModule = __webpack_require__(17).default;
 	                        $ocLazyLoad.load({ name: ngModule.name });
 	                        resolve(ngModule.controller);
 	                    });
@@ -207,18 +250,18 @@ webpackJsonp([0],[
 	exports.default = angular.module('IMonitor.CpuRouter', []).config(Router);
 
 /***/ },
-/* 11 */
+/* 14 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 12 */,
-/* 13 */,
-/* 14 */,
 /* 15 */,
 /* 16 */,
-/* 17 */
+/* 17 */,
+/* 18 */,
+/* 19 */,
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -227,7 +270,7 @@ webpackJsonp([0],[
 	    value: true
 	});
 
-	__webpack_require__(18);
+	__webpack_require__(21);
 
 	var Router = function Router($urlRouterProvider, $stateProvider) {
 	    $stateProvider.state('ram', {
@@ -236,7 +279,7 @@ webpackJsonp([0],[
 	        templateProvider: function templateProvider($q) {
 	            return $q(function (resolve) {
 	                __webpack_require__.e/* nsure */(3, function () {
-	                    resolve(__webpack_require__(20));
+	                    resolve(__webpack_require__(23));
 	                });
 	            });
 	        },
@@ -244,7 +287,7 @@ webpackJsonp([0],[
 	            asyncLoadCtrl: function asyncLoadCtrl($q, $ocLazyLoad) {
 	                return $q(function (resolve) {
 	                    __webpack_require__.e/* nsure */(4, function () {
-	                        var ngModule = __webpack_require__(21).default;
+	                        var ngModule = __webpack_require__(24).default;
 	                        $ocLazyLoad.load({ name: ngModule.name });
 	                        resolve(ngModule.controller);
 	                    });
@@ -259,29 +302,7 @@ webpackJsonp([0],[
 	exports.default = angular.module('IMonitor.RamRouter', []).config(Router);
 
 /***/ },
-/* 18 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 19 */,
-/* 20 */,
-/* 21 */,
-/* 22 */,
-/* 23 */,
-/* 24 */,
-/* 25 */,
-/* 26 */,
-/* 27 */,
-/* 28 */,
-/* 29 */,
-/* 30 */,
-/* 31 */,
-/* 32 */,
-/* 33 */,
-/* 34 */,
-/* 35 */
+/* 21 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin

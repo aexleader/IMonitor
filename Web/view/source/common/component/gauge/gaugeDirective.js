@@ -1,13 +1,22 @@
 import echarts from 'echarts';
+import GaugeController from './gaugeController';
 
 export default class GaugeDirective {
     constructor() {
         this.restrict = 'E';
         this.template = '<div class="gauge-map"></div>';
 
-        this.scope = {
+        this.controller = GaugeController;
 
-        }
+        this.controllerAs = 'GaugeVm';
+
+        this.bindToController = true;
+        this.scope = {
+            'width': '@mapWidth',
+            'height': '@mapHeight',
+            'val': '='
+        };
+
     }
     link(scope, ele, attrs) {
         let option = {
@@ -24,14 +33,17 @@ export default class GaugeDirective {
                 {
                     name: '业务指标',
                     type: 'gauge',
-                    detail: {formatter:'50%'},
-                    data: [{value: 50, name: '完成率'}]
-                }
+                    detail: {formatter:'{value}%'},
+                    data: [{value: 0, name: '完成率'}]
+                },
             ]
         };
-        ele.css({ width: '500px', height: '500px' });
+        ele.css({ width: scope.GaugeVm.width, height: scope.GaugeVm.height });
         var myChart = echarts.init(ele[0]);
-        myChart.setOption(option, true);
-        debugger;
+        scope.$watch('GaugeVm.val', function (newVal) {
+            newVal = newVal || 0;
+            option.series[0].data[0].value = newVal;
+            myChart.setOption(option, true);
+        })
     }
 }

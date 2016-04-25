@@ -1,6 +1,6 @@
 webpackJsonp([2],{
 
-/***/ 14:
+/***/ 17:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9,11 +9,11 @@ webpackJsonp([2],{
 	    value: true
 	});
 
-	var _cpu = __webpack_require__(15);
+	var _cpu = __webpack_require__(18);
 
 	var _cpu2 = _interopRequireDefault(_cpu);
 
-	var _gaugeMap = __webpack_require__(16);
+	var _gaugeMap = __webpack_require__(19);
 
 	var _gaugeMap2 = _interopRequireDefault(_gaugeMap);
 
@@ -23,10 +23,10 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 15:
+/***/ 18:
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -36,16 +36,18 @@ webpackJsonp([2],{
 
 	var CpuController = function CpuController() {
 	    _classCallCheck(this, CpuController);
+
+	    console.log('cpu controller');
 	};
 
 	exports.default = CpuController;
 
 /***/ },
 
-/***/ 16:
+/***/ 19:
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -53,11 +55,24 @@ webpackJsonp([2],{
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var GaugeDemoController = function GaugeDemoController() {
+	var GaugeDemoController = function GaugeDemoController($scope, $timeout) {
 	    _classCallCheck(this, GaugeDemoController);
+
+	    var vm = this;
+	    vm.width = '300px';
+	    vm.height = '300px';
+	    vm.val = 30;
+	    !function repeat() {
+	        $timeout(function () {
+	            vm.val = (Math.random() * 100).toFixed(2) - 0;
+	            repeat();
+	        }, 2000);
+	    }();
 	};
 
 	exports.default = GaugeDemoController;
+
+	GaugeDemoController.$inject = ['$scope', '$timeout'];
 
 /***/ }
 
